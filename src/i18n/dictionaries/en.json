@@ -1,0 +1,16 @@
+{
+    "common": {
+        "ok": "OK"
+    },
+    "auth": {
+        "signIn": "Sign In",
+        "signOut": "Sign Out",
+        "username": "Username",
+        "usernameRequired": "Please enter your username",
+        "signInErrorUnknown": "Some error occurred!"
+    },
+    "appMenu": {
+        "home": "Home",
+        "myBlog": "Our Blog"
+    }
+}

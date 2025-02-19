@@ -1,0 +1,16 @@
+export const COLOR = {
+    WHITE: '#FFFFFF',
+    BLACK: '#000000',
+    CHARCOAL: '#191919',
+    GOLDEN: '#C5A365',
+    LEAF_GREEN: '#49A569',
+    BLUE_100: '#64B5F6',
+    BLUE_300: '#2196F3',
+    BLUE_500: '#1E88E5',
+    GREEN_100: '#D8E9E4',
+    GREEN_300: '#2B5F44',
+    GREEN_500: '#243831',
+    GREY_100: '#BBC2C0',
+    GREY_300: '#939494',
+    DANGER: '#FF3737',
+}
