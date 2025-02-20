@@ -1,10 +1,11 @@
 'use client';
 import { lightTheme } from '@/theme/theme';
-import { List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { List, ListItem, ListItemButton, ListItemIcon, ListItemText, SxProps } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { usePathname, useRouter } from 'next/navigation';
 import HomeIcon from '@/assets/home-icon.svg';
 import ToDoIcon from '@/assets/to-do-icon.svg';
+import { HOME_PATH, OUR_BLOG_PATH } from '@/constants/routes';
 
 export interface IAppMenuItem {
     IconSrc: React.FC<React.SVGProps<SVGSVGElement>>;
@@ -14,10 +15,14 @@ export interface IAppMenuItem {
 
 export default function MenuItemList({
     fontColor = lightTheme.palette.text.primary,
-    onSelected = () => { }
+    onSelected = () => { },
+    width = 280,
+    sx,
 }: {
     fontColor?: string,
-    onSelected?: (item: IAppMenuItem) => void
+    onSelected?: (item: IAppMenuItem) => void,
+    width?: number,
+    sx?: SxProps,
 }) {
     const pathname = usePathname();
     const router = useRouter();
@@ -27,12 +32,12 @@ export default function MenuItemList({
         {
             IconSrc: HomeIcon,
             text: t('home'),
-            destination: '/'
+            destination: HOME_PATH,
         },
         {
             IconSrc: ToDoIcon,
             text: t('myBlog'),
-            destination: '/our-blog'
+            destination: OUR_BLOG_PATH,
         }
     ]
 
@@ -44,7 +49,7 @@ export default function MenuItemList({
 
 
     return (
-        <List sx={{ width: '280px' }}>
+        <List sx={{ width: `${width}px`, ...sx }}>
             {menuItems.map((item) => {
                 const { IconSrc, text, destination } = item;
                 const isSelected = pathname === destination;

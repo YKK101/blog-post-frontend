@@ -1,12 +1,16 @@
-'use client'
 import DesktopAppBarItems from "./DesktopAppBarItems";
 import MobileAppBarItems from "./MobileAppBarItems";
-import { useMediaQuery } from "@mui/material";
+import { Box } from "@mui/material";
 
 export default function AppBarItems() {
-    const isTabletOrMobile = useMediaQuery((theme) => theme.breakpoints.down('md'));
-
     return (
-        isTabletOrMobile ? <MobileAppBarItems /> : <DesktopAppBarItems />
+        <>
+            <Box sx={{ display: { xs: 'block', md: 'none' } }}>
+                <MobileAppBarItems />
+            </Box >
+            <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+                <DesktopAppBarItems />
+            </Box>
+        </>
     );
 }

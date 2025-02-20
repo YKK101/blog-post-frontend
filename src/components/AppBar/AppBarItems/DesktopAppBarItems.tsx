@@ -7,17 +7,18 @@ import { RootState } from "@/lib/store";
 import { removeUser } from "@/lib/slices/userSlices";
 import { useRouter } from "next/navigation";
 import { IUser } from "@/types/user";
+import { SIGNIN_PATH } from "@/constants/routes";
 
 function GuestItems() {
     const t = useTranslations('auth');
     const router = useRouter();
 
     const handleSignIn = () => {
-        router.push('/signin');
+        router.push(SIGNIN_PATH);
     };
 
     return (
-        <Button variant="contained" onClick={handleSignIn}>
+        <Button onClick={handleSignIn}>
             {t('signIn')}
         </Button>
     );

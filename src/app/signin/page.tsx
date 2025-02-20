@@ -1,5 +1,5 @@
 'use client';
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, FormHelperText, Input, Stack, Typography, useMediaQuery } from "@mui/material";
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, FormHelperText, Stack, Typography, useMediaQuery } from "@mui/material";
 import Image from "next/image";
 import * as Yup from 'yup';
 import { useTranslations } from "next-intl";
@@ -14,6 +14,8 @@ import { useAppDispatch } from "@/lib/hook";
 import { setUser } from "@/lib/slices/userSlices";
 import { useAppSelector } from "@/lib/hook";
 import { RootState } from "@/lib/store";
+import Input from "@/components/Input";
+import { HOME_PATH } from "@/constants/routes";
 
 export default function SignIn() {
     const t = useTranslations('');
@@ -53,7 +55,7 @@ export default function SignIn() {
 
     useEffect(() => {
         if (userProfile) {
-            const redirect = queryParams.get('redirect') || '/'
+            const redirect = queryParams.get('redirect') || HOME_PATH;
             router.push(redirect);
         }
     }, [userProfile])
@@ -101,7 +103,6 @@ export default function SignIn() {
                                 </FormHelperText>
                             </FormControl>
                             <Button
-                                variant="contained"
                                 type="submit"
                                 loading={isMutating}
                                 disabled={isMutating}
@@ -116,7 +117,7 @@ export default function SignIn() {
                 <DialogContent>
                     <DialogTitle>{error?.message || t('auth.signInErrorUnknown')}</DialogTitle>
                     <DialogActions>
-                        <Button variant="contained" onClick={handleCloseDialog}>{t('common.ok')}</Button>
+                        <Button onClick={handleCloseDialog}>{t('common.ok')}</Button>
                     </DialogActions>
                 </DialogContent>
             </Dialog>

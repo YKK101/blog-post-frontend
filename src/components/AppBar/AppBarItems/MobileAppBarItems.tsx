@@ -9,6 +9,7 @@ import ArrowNextIcon from '@/assets/arrow-next-icon.svg';
 import { useTranslations } from "next-intl";
 import { removeUser } from "@/lib/slices/userSlices";
 import { useAppDispatch } from "@/lib/hook";
+import { MOBILE_APP_MENU_WIDTH } from "@/constants/constants";
 
 export default function MobileAppBarItems() {
     const t = useTranslations('');
@@ -34,7 +35,7 @@ export default function MobileAppBarItems() {
                     <Box marginLeft={2} marginY={4} onClick={toggleDrawer}>
                         <ArrowNextIcon width={24} height={24} stroke={COLOR.WHITE} />
                     </Box>
-                    <MenuItemList fontColor={COLOR.WHITE} onSelected={toggleDrawer} />
+                    <MenuItemList fontColor={COLOR.WHITE} onSelected={toggleDrawer} width={MOBILE_APP_MENU_WIDTH} />
                     <Button variant="outlined" onClick={handleSignOut} className="m-4">{t('auth.signOut')}</Button>
                 </>
             </Drawer>

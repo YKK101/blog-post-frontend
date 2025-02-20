@@ -1,6 +1,8 @@
 {
     "common": {
-        "ok": "OK"
+        "ok": "OK",
+        "loading": "Fetching data...",
+        "search": "Search"
     },
     "auth": {
         "signIn": "Sign In",
@@ -12,5 +14,14 @@
     "appMenu": {
         "home": "Home",
         "myBlog": "Our Blog"
+    },
+    "post": {
+        "create": "Create"
+    },
+    "comment": {
+        "comment": "{count, plural, =0 {} =1 {1 Comment} other {# Comments}}"
+    },
+    "category": {
+        "category": "Community"
     }
 }

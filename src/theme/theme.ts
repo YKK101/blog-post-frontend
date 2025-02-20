@@ -1,5 +1,7 @@
 import { createTheme } from "@mui/material";
 import { COLOR } from "./color";
+import { APPBAR_HEIGHT } from "@/constants/constants";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 export const lightTheme = createTheme({
     palette: {
@@ -27,10 +29,11 @@ export const lightTheme = createTheme({
         background: {
             paper: COLOR.WHITE,
             default: COLOR.GREEN_100,
-        }
+        },
+        divider: COLOR.GREEN_100,
     },
     shape: {
-        borderRadius: 8,
+        borderRadius: 10,
     },
     typography: {
         fontFamily: '"Inter", serif',
@@ -41,12 +44,14 @@ export const lightTheme = createTheme({
                 colorPrimary: {
                     backgroundColor: COLOR.GREEN_500,
                     zIndex: 0,
+                    height: APPBAR_HEIGHT,
                 },
             },
         },
         MuiButton: {
             defaultProps: {
                 color: 'success',
+                variant: 'contained',
             },
             styleOverrides: {
                 root: {
@@ -54,6 +59,14 @@ export const lightTheme = createTheme({
                 },
                 sizeMedium: {
                     height: 44,
+                }
+            }
+        },
+        MuiContainer: {
+            styleOverrides: {
+                root: {
+                    width: '100%',
+                    height: '100%',
                 }
             }
         },
@@ -70,20 +83,21 @@ export const lightTheme = createTheme({
             },
             styleOverrides: {
                 root: {
-                    minHeight: 44,
-                    backgroundColor: COLOR.WHITE,
-                    borderRadius: 8,
-                    padding: '0px 8px',
                     fontFamily: '"IBM Plex Sans Thai", serif',
-                    '&.Mui-focused': {
-                        border: `2px solid ${COLOR.GOLDEN}`,
-                        boxShadow: `0px 0px 5px 0px ${COLOR.GOLDEN}CC`,
-                    },
-                    '&.Mui-error': {
-                        border: `2px solid ${COLOR.DANGER}`,
-                    }
                 },
             },
+        },
+        MuiSelect: {
+            defaultProps: {
+                variant: 'standard',
+                IconComponent: ExpandMoreIcon,
+            },
+            styleOverrides: {
+                root: {
+                    fontFamily: '"IBM Plex Sans Thai", serif',
+                    height: 44,
+                },
+            }
         },
         MuiTooltip: {
             styleOverrides: {
