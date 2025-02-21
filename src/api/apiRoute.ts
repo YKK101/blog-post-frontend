@@ -1,6 +1,6 @@
-import { ISearchPostsApiParams } from "@/types/api";
+import { ISearchCommentsApiParams, ISearchPostsApiParams } from "@/types/api";
 import backendClient from "./backendClient";
-import { ICreatePost, IPost } from "@/types/post";
+import { IComment, ICreateComment, ICreatePost, IPost } from "@/types/post";
 import { ISearchResult } from "@/types/searchResult";
 import { CancelToken } from "axios";
 import { ICategory } from "@/types/category";
@@ -45,6 +45,16 @@ export const deletePostApi = async (documentId: string): Promise<IPost> => {
 
 export const searchPostsApi = async (params: ISearchPostsApiParams, cancelToken?: CancelToken | undefined): Promise<ISearchResult<IPost>> => {
     const { data } = await backendClient.get("/posts", { params, cancelToken });
+    return data;
+}
+
+export const replyPostApi = async (postDocumentId: string, comment: ICreateComment): Promise<IPost> => {
+    const { data } = await backendClient.post(`/posts/${postDocumentId}/comments`, comment);
+    return data;
+}
+
+export const searchCommentsApi = async (postDocumentId: string, params: ISearchCommentsApiParams, cancelToken?: CancelToken | undefined): Promise<ISearchResult<IComment>> => {
+    const { data } = await backendClient.get(`/posts/${postDocumentId}/comments`, { params, cancelToken });
     return data;
 }
 

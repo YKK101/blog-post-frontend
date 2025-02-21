@@ -7,6 +7,10 @@ export interface ICreatePost {
     categories: string[];
 }
 
+export interface ICreateComment {
+    content: string;
+}
+
 export interface IPost {
     documentId: string;
     title: string;
@@ -15,4 +19,11 @@ export interface IPost {
     categories: ICategory[];
     commentCount: number;
     slug: string;
+}
+
+export interface IComment {
+    id: string;
+    content: string;
+    author: IUser;
+    createdAt: string;
 }

@@ -1,9 +1,9 @@
 import AppBar from "@/components/AppBar";
-import { Container, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import DesktopAppMenu from "@/components/AppMenu/DesktopAppMenu";
 import { APPBAR_HEIGHT } from "@/constants/constants";
 
-export default function MainLayout({ children }: { children: React.ReactNode }) {
+export default function PostLayout({ children }: { children: React.ReactNode }) {
     return (
         <Stack width="100vw" height="100vh" overflow="hidden" >
             <AppBar />

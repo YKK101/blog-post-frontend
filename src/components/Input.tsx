@@ -19,7 +19,7 @@ const StyledInput = styled(MuiInput, {
 
     min-height: 44px;
     border-radius: 8px;
-    padding: 0px 8px;
+    padding: ${(props) => props.multiline ? '8px' : '0px 8px'};
 
     &.Mui-focused {
         border: 2px solid ${(props) => props.focusColor};

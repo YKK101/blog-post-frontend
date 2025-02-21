@@ -35,7 +35,14 @@
         "deleteButton": "Delete"
     },
     "comment": {
-        "comment": "{count, plural, =0 {} =1 {1 Comment} other {# Comments}}"
+        "comment": "{count, plural, =0 {} =1 {1 Comment} other {# Comments}}",
+        "addComment": "Write a comment",
+        "contentPlaceholder": "What's on your mind...",
+        "createButton": "Post",
+        "discardTitle": "Please confirm if you wish to discard the comment",
+        "discardContent": "Are you sure you wish to discard the comment? Unsaved changes will be lost.",
+        "discardButton": "Discard",
+        "commentEditorTitle": "Add Comment"
     },
     "category": {
         "category": "Community",

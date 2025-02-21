@@ -16,6 +16,7 @@
     "@reduxjs/toolkit": "^2.5.1",
     "@types/lodash": "^4.17.15",
     "axios": "^1.7.9",
+    "dayjs": "^1.11.13",
     "formik": "^2.4.6",
     "lodash": "^4.17.21",
     "next": "15.1.7",

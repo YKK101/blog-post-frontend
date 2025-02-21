@@ -14,3 +14,8 @@ export interface ISearchPostsApiParams {
     authors?: string[];
     keyword?: string;
 }
+
+export interface ISearchCommentsApiParams {
+    skip?: number;
+    take?: number;
+}

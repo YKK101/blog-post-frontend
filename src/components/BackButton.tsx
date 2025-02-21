@@ -13,6 +13,9 @@ type IBackButtonProps = IconButtonProps & {
 const StyledIconButton = styled(IconButton, {
     shouldForwardProp: (prop) => prop !== 'variant'
 }) <IBackButtonProps>`
+    width: 40px;
+    height: 40px;
+
     ${(props) => (props.variant === 'filled' ? `
         background-color: ${COLOR.GREEN_100};
     ` : '')}
