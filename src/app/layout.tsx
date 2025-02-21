@@ -5,6 +5,7 @@ import { getMessages } from 'next-intl/server';
 import ThemeRegistry from "@/components/ThemeRegistry";
 import "./globals.css";
 import StoreProvider from "@/components/StoreProvider";
+import AuthListener from "@/components/AuthListener";
 
 const inter = Inter({
   subsets: ['latin'],
@@ -42,9 +43,11 @@ export default async function RootLayout({
       >
         <ThemeRegistry>
           <StoreProvider>
-            <NextIntlClientProvider messages={messages}>
-              {children}
-            </NextIntlClientProvider>
+            <AuthListener>
+              <NextIntlClientProvider messages={messages}>
+                {children}
+              </NextIntlClientProvider>
+            </AuthListener>
           </StoreProvider>
         </ThemeRegistry>
       </body>

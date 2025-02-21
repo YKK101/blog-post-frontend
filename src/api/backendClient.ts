@@ -19,7 +19,12 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
     (response) => response,
-    (error) => Promise.reject(error?.response?.data || error),
+    (error) => {
+        if (error?.response?.status === 401) {
+            localStorage.removeItem('accessToken');
+        }
+        return Promise.reject(error?.response?.data || error);
+    },
 )
 
 export default instance;

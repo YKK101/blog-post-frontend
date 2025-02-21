@@ -4,6 +4,7 @@ import { IComment, ICreateComment, ICreatePost, IPost } from "@/types/post";
 import { ISearchResult } from "@/types/searchResult";
 import { CancelToken } from "axios";
 import { ICategory } from "@/types/category";
+import { IUser } from "@/types/user";
 
 export const signInApi = async (username: string) => {
     const { data } = await backendClient.post("/auth/signin", { username })
@@ -17,6 +18,11 @@ export const signInApi = async (username: string) => {
 export const signOutApi = async () => {
     localStorage.removeItem('accessToken');
 };
+
+export const getUserProfileApi = async (): Promise<IUser> => {
+    const { data } = await backendClient.get("/me");
+    return data;
+}
 
 export const getPostApi = async (documentId: string): Promise<IPost> => {
     const { data } = await backendClient.get(`/posts/${documentId}`, { params: { withAuthor: true } });
