@@ -1,20 +1,23 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, IBM_Plex_Sans_Thai } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import ThemeRegistry from "@/components/ThemeRegistry";
 import "./globals.css";
 import StoreProvider from "@/components/StoreProvider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: "--font-inter",
+})
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const ibmPlexSansThai = IBM_Plex_Sans_Thai({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: "--font-ibm-plex-sans-thai",
+  weight: "400"
+})
 
 export const metadata: Metadata = {
   title: "a Board - Where your creativity takes shape",
@@ -32,19 +35,10 @@ export default async function RootLayout({
     <html lang="en">
       <head>
         <link rel="icon" href="/logo-black.svg" />
-
-        {/* Google Fonts -> Roboto Font */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@100;200;300;400;500;600;700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-          rel="stylesheet"
-        />
-
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${inter.variable} ${ibmPlexSansThai.variable} serif`}
       >
         <ThemeRegistry>
           <StoreProvider>

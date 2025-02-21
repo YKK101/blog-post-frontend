@@ -9,9 +9,9 @@ export const useAuthGuard = () => {
     const user = useAppSelector((state: RootState) => state.user.userProfile);
 
     useEffect(() => {
-        if (!user) {
+        if (!user && pathname) {
             const redirect = encodeURIComponent(pathname);
             router.push(`/signin?redirect=${redirect}`);
         }
-    }, [user])
+    }, [user, pathname, router])
 };

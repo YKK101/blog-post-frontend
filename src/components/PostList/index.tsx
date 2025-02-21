@@ -1,17 +1,43 @@
+'use client';
 import { Stack, SxProps } from "@mui/material";
 import VirtualizedList from "../VirtualizedList";
-import PostCard from "./PostCard";
+import PostCard, { IPostCardActions } from "./PostCard";
 import { lightTheme } from "@/theme/theme";
 import { IPost } from "@/types/post";
+import { useRouter } from "next/navigation";
+import { POST_DELETE_PATH, POST_DETAIL_PATH, POST_EDIT_PATH } from "@/constants/routes";
 
 export interface IPostListProps {
     data: IPost[];
     hasNextPage?: boolean;
+    onClick?: (post: IPost) => void;
     onBottomReach?: () => void;
+    actions?: IPostCardActions[]
 }
 
-export default function PostList({ data, hasNextPage = false, onBottomReach = () => { } }: IPostListProps) {
-    const keyExtractor = (item: IPost, index: number) => `pl-${item.documentId}`;
+export default function PostList({
+    data,
+    hasNextPage = false,
+    onClick = () => { },
+    onBottomReach = () => { },
+    actions = [],
+}: IPostListProps) {
+    const router = useRouter();
+    const keyExtractor = (item: IPost) => `pl-${item.documentId}`;
+
+    const handlePostClick = (post: IPost) => {
+        router.push(POST_DETAIL_PATH(post.slug));
+    }
+
+    const handleActionClick = (action: IPostCardActions, post: IPost) => {
+        if (action === 'like') {
+
+        } else if (action === 'edit') {
+            router.push(POST_EDIT_PATH(post.documentId));
+        } else if (action === 'delete') {
+            router.push(POST_DELETE_PATH(post.documentId));
+        }
+    }
 
     const renderItem = (item: IPost, index: number) => {
         const isFirst = index === 0;
@@ -30,7 +56,7 @@ export default function PostList({ data, hasNextPage = false, onBottomReach = ()
         };
 
         return (
-            <PostCard post={item} sx={sx} />
+            <PostCard post={item} sx={sx} onClick={handlePostClick} actions={actions} onActionClick={handleActionClick} />
         )
     }
 

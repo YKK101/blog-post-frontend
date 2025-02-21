@@ -4,7 +4,7 @@ import useSWRMutation from "swr/mutation";
 import { IPost } from "@/types/post";
 import { ISearchPostsApiParams } from "@/types/api";
 import { PublicationState } from "@/constants/enum";
-import axios, { CancelToken } from "axios";
+import axios, { CancelTokenSource } from "axios";
 
 interface IUsePostSearchParams {
     publicationState?: PublicationState;
@@ -23,11 +23,11 @@ export const usePostSearch = (params?: IUsePostSearchParams) => {
     const [totalPostCount, setTotalPostCount] = useState(0);
     const [postList, setPostList] = useState<IPost[]>([]);
 
-    const cancelTokenRef = useRef<CancelToken.source | null>(null);
+    const cancelTokenRef = useRef<CancelTokenSource | null>(null);
 
     const { trigger, isMutating: isLoading } = useSWRMutation(
         'searchPosts',
-        async (_: any, { arg }: any) => {
+        async (_, { arg }: { arg: { start: number } & ISearchPostsApiParams }) => {
             try {
                 const { categories = [], authors = [], start = 0, keyword = '' } = arg || {};
                 const params: ISearchPostsApiParams = {

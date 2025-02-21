@@ -2,11 +2,13 @@ import { COLOR } from '@/theme/color';
 import MuiInput, { InputProps } from '@mui/material/Input';
 import styled from '@emotion/styled';
 
+type StyledInputProps = InputProps & { variant?: 'filled' | 'outlined', focusColor?: string }
+
 const StyledInput = styled(MuiInput, {
-    shouldForwardProp: (prop) => prop !== 'variant',
-}) <{ variant: 'filled' | 'outlined' }>`
+    shouldForwardProp: (prop) => !['variant', 'focusColor'].includes(prop),
+}) <StyledInputProps>`
     transition: border 0.2s ease-in-out;
-    border: 2px solid ${COLOR.WHITE};
+    border: 2px solid ${COLOR.GREY_100};
 
     ${props => props.variant === 'outlined' && `
         border: 2px solid ${COLOR.WHITE};
@@ -20,8 +22,8 @@ const StyledInput = styled(MuiInput, {
     padding: 0px 8px;
 
     &.Mui-focused {
-        border: 2px solid ${COLOR.GOLDEN};
-        box-shadow: 0px 0px 5px 0px ${COLOR.GOLDEN}CC;
+        border: 2px solid ${(props) => props.focusColor};
+        box-shadow: 0px 0px 5px 0px ${(props) => props.focusColor}CC;
     }
 
     &.Mui-error {
@@ -29,10 +31,14 @@ const StyledInput = styled(MuiInput, {
     }
 `;
 
-export default function Input(props: { variant?: 'filled' | 'outlined' } & InputProps) {
-    const { variant = 'filled', ...rest } = props;
+export default function Input(props: StyledInputProps) {
+    const {
+        variant = 'filled',
+        focusColor = COLOR.LEAF_GREEN,
+        ...rest
+    } = props;
 
     return (
-        <StyledInput variant={variant} {...rest} />
+        <StyledInput variant={variant} focusColor={focusColor} {...rest} />
     )
 };

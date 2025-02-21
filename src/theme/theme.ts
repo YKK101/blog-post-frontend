@@ -1,7 +1,8 @@
-import { createTheme } from "@mui/material";
+import { createTheme, outlinedInputClasses } from "@mui/material";
 import { COLOR } from "./color";
 import { APPBAR_HEIGHT } from "@/constants/constants";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { error } from "console";
 
 export const lightTheme = createTheme({
     palette: {
@@ -36,7 +37,7 @@ export const lightTheme = createTheme({
         borderRadius: 10,
     },
     typography: {
-        fontFamily: '"Inter", serif',
+        fontFamily: 'var(--font-inter), serif',
     },
     components: {
         MuiAppBar: {
@@ -55,7 +56,7 @@ export const lightTheme = createTheme({
             },
             styleOverrides: {
                 root: {
-                    fontFamily: '"IBM Plex Sans Thai", serif',
+                    fontFamily: 'var(--font-ibm-plex-sans-thai), serif',
                 },
                 sizeMedium: {
                     height: 44,
@@ -77,27 +78,37 @@ export const lightTheme = createTheme({
                 }
             }
         },
+        MuiFormHelperText: {
+            styleOverrides: {
+                root: {
+                    '&.Mui-error': {
+                        color: COLOR.DANGER,
+                    }
+                }
+            }
+        },
         MuiInput: {
             defaultProps: {
                 disableUnderline: true,
             },
             styleOverrides: {
                 root: {
-                    fontFamily: '"IBM Plex Sans Thai", serif',
+                    fontFamily: 'var(--font-ibm-plex-sans-thai), serif',
                 },
             },
         },
         MuiSelect: {
             defaultProps: {
-                variant: 'standard',
                 IconComponent: ExpandMoreIcon,
+                variant: 'standard',
             },
             styleOverrides: {
                 root: {
-                    fontFamily: '"IBM Plex Sans Thai", serif',
+                    fontFamily: 'var(--font-ibm-plex-sans-thai), serif',
                     height: 44,
-                },
-            }
+                    padding: '0px 16px',
+                }
+            },
         },
         MuiTooltip: {
             styleOverrides: {

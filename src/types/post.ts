@@ -1,6 +1,12 @@
 import { IUser } from "./user"
 import { ICategory } from "./category"
 
+export interface ICreatePost {
+    title: string;
+    content: string;
+    categories: string[];
+}
+
 export interface IPost {
     documentId: string;
     title: string;
@@ -8,4 +14,5 @@ export interface IPost {
     author: IUser;
     categories: ICategory[];
     commentCount: number;
+    slug: string;
 }

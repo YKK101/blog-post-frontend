@@ -1,6 +1,6 @@
 import { ISearchPostsApiParams } from "@/types/api";
 import backendClient from "./backendClient";
-import { IPost } from "@/types/post";
+import { ICreatePost, IPost } from "@/types/post";
 import { ISearchResult } from "@/types/searchResult";
 import { CancelToken } from "axios";
 import { ICategory } from "@/types/category";
@@ -18,10 +18,36 @@ export const signOutApi = async () => {
     localStorage.removeItem('accessToken');
 };
 
-export const searchPostsApi = async (params: ISearchPostsApiParams, cancelToken?: CancelToken.source | null): Promise<ISearchResult<IPost>> => {
+export const getPostApi = async (documentId: string): Promise<IPost> => {
+    const { data } = await backendClient.get(`/posts/${documentId}`, { params: { withAuthor: true } });
+    return data;
+}
+
+export const getPostBySlugApi = async (slug: string): Promise<IPost> => {
+    const { data } = await backendClient.get(`/posts/slugs/${slug}`, { params: { withAuthor: true } });
+    return data;
+}
+
+export const createPostApi = async (post: ICreatePost): Promise<IPost> => {
+    const { data } = await backendClient.post("/posts", post);
+    return data;
+}
+
+export const updatePostApi = async (documentId: string, post: ICreatePost): Promise<IPost> => {
+    const { data } = await backendClient.patch(`/posts/${documentId}`, post);
+    return data;
+}
+
+export const deletePostApi = async (documentId: string): Promise<IPost> => {
+    const { data } = await backendClient.delete(`/posts/${documentId}`);
+    return data;
+}
+
+export const searchPostsApi = async (params: ISearchPostsApiParams, cancelToken?: CancelToken | undefined): Promise<ISearchResult<IPost>> => {
     const { data } = await backendClient.get("/posts", { params, cancelToken });
     return data;
 }
+
 
 export const listCategories = async (): Promise<ICategory[]> => {
     const { data } = await backendClient.get("/categories");

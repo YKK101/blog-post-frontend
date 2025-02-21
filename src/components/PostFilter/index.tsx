@@ -29,8 +29,8 @@ export default function PostFilter({
 }: IPostFilter) {
     const t = useTranslations('');
     const router = useRouter();
-    const { data: categories } = useSWR('getCategory', (path: string) => listCategories());
-    const formik = useFormik({ initialValues })
+    const { data: categories } = useSWR('getCategory', () => listCategories());
+    const formik = useFormik({ initialValues, onSubmit: () => { } })
 
     const handleCreatePost = () => {
         router.push(CREATE_POST_PATH);
@@ -57,7 +57,7 @@ export default function PostFilter({
                     />
                 </Grid>
                 <Grid size="auto">
-                    <Select {...formik.getFieldProps('categories')} sx={{ width: 120 }}>
+                    <Select {...formik.getFieldProps('categories')} variant="standard" sx={{ width: 120 }}>
                         <MenuItem value="all">All</MenuItem>
                         {categories?.map((category: ICategory) => (
                             <MenuItem key={category.documentId} value={category.documentId}>
@@ -67,7 +67,7 @@ export default function PostFilter({
                     </Select>
                 </Grid>
                 <Grid size="auto">
-                    <Button startIcon={<AddIcon />} onClick={handleCreatePost}>{t('post.create')}</Button>
+                    <Button startIcon={<AddIcon />} onClick={handleCreatePost}>{t('post.createButton')}</Button>
                 </Grid>
             </Grid>
         </form>

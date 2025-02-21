@@ -8,7 +8,7 @@ import { COLOR } from "@/theme/color";
 import { useFormik } from "formik";
 import useSWRMutation from "swr/mutation";
 import { signInApi } from "@/api/apiRoute";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAppDispatch } from "@/lib/hook";
 import { setUser } from "@/lib/slices/userSlices";
@@ -16,18 +16,33 @@ import { useAppSelector } from "@/lib/hook";
 import { RootState } from "@/lib/store";
 import Input from "@/components/Input";
 import { HOME_PATH } from "@/constants/routes";
+import { Key } from "swr";
+import { IUser } from "@/types/user";
+import ConfirmDialog from "@/components/ConfirmDialog";
+
+function HeavyLoadDataPart() {
+    const router = useRouter();
+    const queryParams = useSearchParams();
+    const { userProfile } = useAppSelector((state: RootState) => state.user);
+
+    useEffect(() => {
+        if (userProfile) {
+            const redirect = queryParams?.get('redirect') || HOME_PATH;
+            router.replace(redirect);
+        }
+    }, [userProfile, queryParams, router])
+
+    return null;
+}
 
 export default function SignIn() {
     const t = useTranslations('');
-    const router = useRouter();
-    const queryParams = useSearchParams();
     const dispatch = useAppDispatch();
-    const { userProfile } = useAppSelector((state: RootState) => state.user);
     const isMobileAndTablet = useMediaQuery(lightTheme.breakpoints.down('md'));
     const layoutDirection = isMobileAndTablet ? 'column' : 'row-reverse';
-    const { error, trigger: signIn, isMutating } = useSWRMutation(
+    const { error, trigger: signIn, isMutating } = useSWRMutation<{ user: IUser }, any, Key, string>(
         "signin",
-        (_: any, { arg }: any) => signInApi(arg),
+        (_: string, { arg }: { arg: string }) => signInApi(arg),
     );
 
     const [isDialogOpen, setIsDialogOpen] = useState(false)
@@ -43,7 +58,7 @@ export default function SignIn() {
             try {
                 const { user } = await signIn(username);
                 dispatch(setUser(user));
-            } catch (error) {
+            } catch (_) {
                 setIsDialogOpen(true);
             }
         }
@@ -53,15 +68,11 @@ export default function SignIn() {
         setIsDialogOpen(false);
     };
 
-    useEffect(() => {
-        if (userProfile) {
-            const redirect = queryParams.get('redirect') || HOME_PATH;
-            router.push(redirect);
-        }
-    }, [userProfile])
-
     return (
         <>
+            <Suspense>
+                <HeavyLoadDataPart />
+            </Suspense>
             <Stack
                 width="100vw"
                 height="100vh"
@@ -95,6 +106,7 @@ export default function SignIn() {
                             <FormControl>
                                 <Input
                                     title={t('auth.username')}
+                                    focusColor={COLOR.GOLDEN}
                                     error={formik.touched.username && Boolean(formik.errors.username)}
                                     {...formik.getFieldProps('username')}
                                 />
@@ -113,14 +125,11 @@ export default function SignIn() {
                     </form>
                 </Box>
             </Stack >
-            <Dialog open={isDialogOpen}>
-                <DialogContent>
-                    <DialogTitle>{error?.message || t('auth.signInErrorUnknown')}</DialogTitle>
-                    <DialogActions>
-                        <Button onClick={handleCloseDialog}>{t('common.ok')}</Button>
-                    </DialogActions>
-                </DialogContent>
-            </Dialog>
+            <ConfirmDialog
+                open={isDialogOpen}
+                title={error?.message || t('auth.signInErrorUnknown')}
+                onConfirm={handleCloseDialog}
+            />
         </>
     );
 }

@@ -1,6 +1,7 @@
 {
     "common": {
         "ok": "OK",
+        "cancel": "Cancel",
         "loading": "Fetching data...",
         "search": "Search"
     },
@@ -9,19 +10,36 @@
         "signOut": "Sign Out",
         "username": "Username",
         "usernameRequired": "Please enter your username",
-        "signInErrorUnknown": "Some error occurred!"
+        "signInErrorUnknown": "Some error occurred!",
+        "signOutTitle": "Please confirm if you wish to sign out",
+        "signOutContent": "Are you sure you wish to sign out?"
     },
     "appMenu": {
         "home": "Home",
         "myBlog": "Our Blog"
     },
     "post": {
-        "create": "Create"
+        "createButton": "Create",
+        "createTitle": "Create Post",
+        "editTitle": "Edit Post",
+        "titlePlaceholder": "Title",
+        "contentPlaceholder": "What's on your mind...",
+        "titleRequired": "Please enter a title",
+        "contentRequired": "Post must have content",
+        "savePostButton": "Publish",
+        "discardTitle": "Please confirm if you wish to discard the post",
+        "discardContent": "Are you sure you wish to discard the post? Unsaved changes will be lost.",
+        "discardButton": "Discard",
+        "deleteTitle": "Please confirm if you wish to delete the post",
+        "deleteContent": "Are you sure you wish to delete the post? Once deleted, this action cannot be recovered.",
+        "deleteButton": "Delete"
     },
     "comment": {
         "comment": "{count, plural, =0 {} =1 {1 Comment} other {# Comments}}"
     },
     "category": {
-        "category": "Community"
+        "category": "Community",
+        "placeholder": "Choose Community",
+        "categoriesRequired": "Please choose community"
     }
 }

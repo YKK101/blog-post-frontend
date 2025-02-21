@@ -51,6 +51,7 @@ export default function OurBlog() {
                     data={postList}
                     hasNextPage={totalPostCount > postList.length}
                     onBottomReach={handleBottomReach}
+                    actions={['edit', 'delete']}
                 />
             </Box>
         </Container>

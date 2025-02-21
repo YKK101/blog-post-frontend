@@ -10,10 +10,12 @@ import { useTranslations } from "next-intl";
 import { removeUser } from "@/lib/slices/userSlices";
 import { useAppDispatch } from "@/lib/hook";
 import { MOBILE_APP_MENU_WIDTH } from "@/constants/constants";
+import ConfirmDialog from "@/components/ConfirmDialog";
 
 export default function MobileAppBarItems() {
     const t = useTranslations('');
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const [showSignOutDialog, setShowSignOutDialog] = useState(false);
     const dispatch = useAppDispatch();
 
     const toggleDrawer = debounce(() => {
@@ -36,9 +38,18 @@ export default function MobileAppBarItems() {
                         <ArrowNextIcon width={24} height={24} stroke={COLOR.WHITE} />
                     </Box>
                     <MenuItemList fontColor={COLOR.WHITE} onSelected={toggleDrawer} width={MOBILE_APP_MENU_WIDTH} />
-                    <Button variant="outlined" onClick={handleSignOut} className="m-4">{t('auth.signOut')}</Button>
+                    <Button variant="outlined" onClick={() => setShowSignOutDialog(true)} className="m-4">{t('auth.signOut')}</Button>
                 </>
             </Drawer>
+            <ConfirmDialog
+                open={showSignOutDialog}
+                title={t('auth.signOutTitle')}
+                content={t('auth.signOutContent')}
+                confirmText={t('auth.signOut')}
+                confirmColor="error"
+                onCancel={() => setShowSignOutDialog(false)}
+                onConfirm={handleSignOut}
+            />
         </>
     );
 }

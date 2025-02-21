@@ -8,6 +8,8 @@ import { removeUser } from "@/lib/slices/userSlices";
 import { useRouter } from "next/navigation";
 import { IUser } from "@/types/user";
 import { SIGNIN_PATH } from "@/constants/routes";
+import ConfirmDialog from "@/components/ConfirmDialog";
+import { useState } from "react";
 
 function GuestItems() {
     const t = useTranslations('auth');
@@ -25,16 +27,29 @@ function GuestItems() {
 }
 
 function ProfileToolTip() {
-    const t = useTranslations('auth');
+    const t = useTranslations('');
     const dispatch = useAppDispatch();
     const handleSignOut = () => {
         dispatch(removeUser());
     };
+    const [showSignOutDialog, setShowSignOutDialog] = useState(false);
 
     return (
-        <Box px={2} py={1}>
-            <Button onClick={handleSignOut} variant="outlined">{t('signOut')}</Button>
-        </Box>
+        <>
+            <Box px={2} py={1}>
+                <Button onClick={() => setShowSignOutDialog(true)} variant="outlined">{t('auth.signOut')}</Button>
+            </Box>
+
+            <ConfirmDialog
+                open={showSignOutDialog}
+                title={t('auth.signOutTitle')}
+                content={t('auth.signOutContent')}
+                confirmText={t('auth.signOut')}
+                confirmColor="error"
+                onCancel={() => setShowSignOutDialog(false)}
+                onConfirm={handleSignOut}
+            />
+        </>
     )
 }
 
